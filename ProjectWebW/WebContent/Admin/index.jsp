@@ -64,8 +64,8 @@
 							class="database.ProductDAO" />
 						<div class="card-body">
 							<div class="table-responsive">
-								<form action="http://localhost:8080/ProjectWebW/EditProduct"
-									method="get">
+								<form action="http://localhost:8080/ProjectWebW/ProductServlet"
+									method="post">
 									<table class="table table-bordered" id="dataTable" width="100%"
 										cellspacing="0">
 										<thead>
@@ -90,7 +90,6 @@
 												<th>Action</th>
 											</tr>
 										</tfoot>
-
 										<tbody>
 											<tr>
 												<td><input name="Nid" size="3"
@@ -117,10 +116,6 @@
 												<c:set var="deleteURL"
 													value="EditProduct?action=Delete&id=${item.id}"
 													scope="page" />
-<%-- 												<c:set var="editURL" --%>
-<%-- 													value="EditProduct?action=Update&id=${item.id}&loai=${item.loai}&name=${''}&gia=${item.gia}&filename1=${item.filename1}&sluong=" --%>
-<%-- 													scope="page" /> --%>
-
 												<tr>
 													<td><input name="${item.id}id" class="inputText form-control"
 														value="${item.id}" type="text" readonly="readonly" /></td>

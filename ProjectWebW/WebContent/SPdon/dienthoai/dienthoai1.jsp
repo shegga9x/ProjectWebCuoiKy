@@ -34,16 +34,21 @@ Body Section
     </ul>	
 	<div class="well well-small">
 	<div class="row-fluid">
-			<div class="span5">
-			<div id="myCarousel" class=" ">
+            <div class="span5">
+			<div id="myCarousel" class="carousel slide cntr">
                 <div class="carousel-inner">
                   <div class="item active">
                    <a href="#"> <img src="<%=src%>" alt="" style="width:100%"></a>
+                   </div>
+                  <% for(String srcname : new ProductDAO().getIMG(p1.getId())) {
+        String subsrc = "http://localhost:8080/ProjectWebW/assets/imgB/"+p1.getLoai()+"/sub/"+srcname+".jpg";%>
+                  <div class="item">
+                     <a href="#"> <img src="<%=subsrc%>" alt="" style="width:100%"></a>
                   </div>
-                 
+                   <% } %>
                 </div>
-                <a class="left carousel-control" href="#myCarousel" data-slide="prev">â¹</a>
-                <a class="right carousel-control" href="#myCarousel" data-slide="next">âº</a>
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
             </div>
 			</div>
 			<div class="span7">

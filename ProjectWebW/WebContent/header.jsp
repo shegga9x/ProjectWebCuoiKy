@@ -42,8 +42,10 @@
 -->
 
 
-	<jsp:useBean id="cart" scope="session" class="beans.Cart"></jsp:useBean>
+	<jsp:useBean id="cart" scope="session" class="database.CartDAO"></jsp:useBean>
 	<c:set var="currentUser" value='${sessionScope["currentSessionUser"]}'></c:set>
+	<c:set var="idU" value='${currentUser.getUsername()}'></c:set>
+	
 	<div class="navbar navbar-inverse navbar-fixed-top">
 		<div class="topNav">
 			<div class="container">
@@ -65,21 +67,24 @@
 								class="icon-envelope"></span> Contact us</a>
 							<a href="http://localhost:8080/ProjectWebW/MainPage/cart.jsp"><span
 								class="icon-shopping-cart"></span> <c:out
-									value="${cart.getLineItemCount() }"></c:out> Item(s) - <span
+									value="${cart.showProductItem(idU).size() }"></c:out> Item(s) - <span
 								class="badge badge-warning"> $<c:out
-										value="${cart.total }"></c:out></span></a>
+										value="${cart.showCartByID(idU).getTotal() }"></c:out></span></a>
 
 						</c:when>
 						<c:otherwise>
+						<c:set var="total" value='${cart.getTotal(idU)}'></c:set>
+						<input type="hidden" value="${cart.updateCart(idU,total)}">
+						
 							<a href="#"><span class="icon-user"></span>
 								${currentUser.firstName} ${currentUser.lastName}</a>
 							<a href="http://localhost:8080/ProjectWebW/MainPage/contact.jsp"><span
 								class="icon-envelope"></span> Contact us</a>
 							<a href="http://localhost:8080/ProjectWebW/MainPage/cart.jsp"><span
 								class="icon-shopping-cart"></span> <c:out
-									value="${cart.getLineItemCount() }"></c:out> Item(s) - <span
+									value="${cart.showProductItem(idU).size() }"></c:out> Item(s) - <span
 								class="badge badge-warning"> $<c:out
-										value="${cart.total }"></c:out></span></a>
+										value="${cart.showCartByID(idU).getTotal() }"></c:out></span></a>
 							<a href="http://localhost:8080/ProjectWebW/MainPage/logout.jsp"><span
 								class="icon-signout"> </span> Log out</a>
 						</c:otherwise>

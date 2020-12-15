@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import beans.Cart;
 import beans.User;
+import database.CartDAO;
 import database.UserDAO;
 
 /**
@@ -37,7 +39,7 @@ public class UserServlet extends HttpServlet {
 			throws ServletException, IOException {
 		User user = new User();
 		String action = request.getParameter("action");
-		 PrintWriter out = response.getWriter();
+		PrintWriter out = response.getWriter();
 		if (action.equalsIgnoreCase("Sign In")) {
 			user.setUserName(request.getParameter("un"));
 			user.setPassword(request.getParameter("pw"));
@@ -48,7 +50,7 @@ public class UserServlet extends HttpServlet {
 				response.sendRedirect("MainPage/index.jsp");
 				// logged-in page
 			} else {
-				
+
 				out.println("<script type=\"text/javascript\">");
 				out.println("window.location = 'MainPage/login.jsp';");
 				out.println("alert('User or password incorrect, please try again');");
@@ -68,7 +70,7 @@ public class UserServlet extends HttpServlet {
 					session.setAttribute("currentSessionUser", user);
 					response.sendRedirect("MainPage/index.jsp"); // logged-in page
 				} else {
-				       
+
 					out.println("<script type=\"text/javascript\">");
 					out.println("alert('User or password incorrect, please try again');");
 					out.println("window.location = 'MainPage/register.jsp';");

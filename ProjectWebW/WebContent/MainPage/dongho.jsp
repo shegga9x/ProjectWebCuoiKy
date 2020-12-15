@@ -16,8 +16,9 @@
 
 		<jsp:include page="../slidebar.jsp"></jsp:include>
 		<jsp:useBean id="product" scope="session" class="database.ProductDAO"/>
-	
-		<c:forEach var="item" items="${product.listByType('dongho')}">
+		<c:set var="currentUser" value='${sessionScope["currentSessionUser"]}'></c:set>
+		<c:set var="idU" value='${currentUser.getUsername()}'></c:set>
+		<c:forEach var="item" items="${product.listByType('dienthoai')}">
 		<div class="span9">
 			<div class="well well-small">
 				<div class="row-fluid">
@@ -36,7 +37,8 @@
 					<div class="span4 alignR">
 						<form class="form-horizontal qtyFrm" method="POST"
 							action="http://localhost:8080/ProjectWebW/CartServlet">
-							<input type="hidden" name="name" value="${item.name}">
+							<input type="hidden" name="idU" value="${idU}">
+							<input type="hidden" name="idP" value="${item.id}">
 							<input type="hidden" name="loai" value="${item.loai}">
 							<input type="hidden" name="filename1" value="${item.filename1}">
 							<input type="hidden" name="id" value="${item.id}">

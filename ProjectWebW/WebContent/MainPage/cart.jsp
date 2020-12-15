@@ -9,16 +9,17 @@
 <body>
 <jsp:include page="../header.jsp"></jsp:include>
 <div class="row">
-   <jsp:useBean id="cart" scope="session" class="beans.Cart" />
+   <jsp:useBean id="cart" scope="session" class="database.CartDAO" />
+   <c:set var="currentUser" value='${sessionScope["currentSessionUser"]}'></c:set>
+   <c:set var="idU" value='${currentUser.getUsername()}'></c:set>
 	<div class="span12">
     <ul class="breadcrumb">
 		<li><a href="index.jsp">Home</a> <span class="divider">/</span></li>
 		<li class="active">Tính tiền</li>
     </ul>
 	<div class="well well-small">
-		<h1>Tính tiền <small class="pull-right"> <c:out value="${cart.getLineItemCount()}"/> Items are in the cart </small></h1>
+		<h1>Tính tiền <small class="pull-right"> <c:out value="${cart.showProductItem(idU).size()}"/> Items are in the cart </small></h1>
 	<hr class="soften"/>	
-	
 	<table class="table table-bordered table-condensed">
               <thead>
                 <tr>
@@ -33,12 +34,12 @@
               </thead>
               <tbody>
               
-               <c:if test="${cart.lineItemCount == 0}">
+               <c:if test="${cart.showProductItem(idU).size() == 0}">
                     <tr> <td colspan="4">- Cart is currently empty -</td></tr>
                 </c:if>
                 <c:set var="count" value="0" scope="page" />
                 
-                <c:forEach var="cartItem" items="${cart.list}" varStatus="counter">
+                <c:forEach var="cartItem" items="${cart.showProductItem(idU)}" varStatus="counter">
                 <c:set var="count" value="${count + 1}" scope="page"/>
                  <c:set var = "src1" scope = "session" value = "http://localhost:8080/ProjectWebW/assets/imgB/${cartItem.getLoai()}/${cartItem.getFilename1()}.jpg"/>
                     <form name="item" method="POST" action="http://localhost:8080/ProjectWebW/CartServlet">
@@ -46,7 +47,8 @@
 									<td><img width="100" src="${src1}" alt=""></td>
 									<td>${cartItem.name}
 									<br>Model :<c:out value="${cartItem.loai} "/>
-									<input type="hidden" name="stt" value="${count}">
+									<input type="hidden" name="idU" value="${idU}">
+									<input type="hidden" name="idP" value="${cartItem.id}">
 									</td>
 									<td>-</td>
 									<td><span class="shopBtn"><span class="icon-ok"></span></span>
@@ -68,7 +70,7 @@
 				
 				 <tr>
                   <td colspan="6" class="alignR">Total products:	</td>
-                  <td class="label label-primary">$<c:out value="${cart.total}"/></td>
+                  <td class="label label-primary">$<c:out value="${cart.getTotal(idU)}"/></td>
                 </tr>
 				</tbody>
             </table><br/>

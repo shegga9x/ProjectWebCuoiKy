@@ -1,6 +1,7 @@
 package servlet;
 
-import beans.Cart;
+import database.CartDAO;
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,14 +45,15 @@ public class CartServlet extends HttpServlet {
 
     private void pay(HttpServletRequest request) {
     	 HttpSession session = request.getSession();
-         Cart cartBean = null;
+    	 CartDAO cartBean = null;
+    	 String idU = request.getParameter("idU");
          Object objCartBean = session.getAttribute("cart");
          if (objCartBean != null) {
-             cartBean = (Cart) objCartBean;
+             cartBean = (CartDAO) objCartBean;
          } else {
-             cartBean = new Cart();
+             cartBean = new CartDAO();
          }
-         if (cartBean.payCheck()) {
+         if (cartBean.payCheck(idU)) {
 		}else {
 		}
          
@@ -60,52 +62,50 @@ public class CartServlet extends HttpServlet {
 	protected void deleteCart(HttpServletRequest request) {
         HttpSession session = request.getSession();
         
-        String iSTT = request.getParameter("stt");
-        Cart cartBean = null;
+        String idU = request.getParameter("idU");
+        String idP = request.getParameter("idP");
+        CartDAO cartBean = null;
 
         Object iObject = session.getAttribute("cart");
         if (iObject != null) {
-            cartBean = (Cart) iObject;
+            cartBean = (CartDAO) iObject;
         } else {
-            cartBean = new Cart();
+            cartBean = new CartDAO();
         }
-        cartBean.deleteCart(iSTT);
+        cartBean.deleteCartI(idU,idP);
     }
 
     protected void updateCart(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        String iQuantity = request.getParameter("quantity");
-        String iSTT = request.getParameter("stt");
-        Cart cartBean = null;
+        String quantity = request.getParameter("quantity");
+        String idU = request.getParameter("idU");
+        String idP = request.getParameter("idP");
+        CartDAO cartBean = null;
         Object objCartBean = session.getAttribute("cart");
         if (objCartBean != null) {
-            cartBean = (Cart) objCartBean;
+            cartBean = (CartDAO) objCartBean;
         } else {
-            cartBean = new Cart();
+            cartBean = new CartDAO();
         }
-        cartBean.updateCart(iSTT, iQuantity);
+        cartBean.updateCartI(idU, idP,quantity);
     }
 
     protected void addToCart(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        String id = request.getParameter("id");
-        String iName = request.getParameter("name");
-        String iDescription = request.getParameter("description");
-        String iPrice = request.getParameter("price");
-        String iQuantity = request.getParameter("quantity");
-        String loai = request.getParameter("loai");
-        String filename1 = request.getParameter("filename1");
-        Cart cartBean = null;
+        String idU = request.getParameter("idU");
+        String idP = request.getParameter("idP");
+        String quantity = request.getParameter("quantity");
+        CartDAO cartBean = null;
         Object objCartBean = session.getAttribute("cart");
 
         if (objCartBean != null) {
-            cartBean = (Cart) objCartBean;
+            cartBean = (CartDAO) objCartBean;
         } else {
-            cartBean = new Cart();
+            cartBean = new CartDAO();
             session.setAttribute("cart", cartBean);
         }
 
-        cartBean.addCart(id,iDescription, iPrice, iQuantity,iName,loai,filename1);
+        cartBean.addCartI(idU, idP,quantity);
     }
 
 }
