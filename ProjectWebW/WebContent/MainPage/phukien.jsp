@@ -18,7 +18,7 @@
 		<jsp:useBean id="product" scope="session" class="database.ProductDAO"/>
 		<c:set var="currentUser" value='${sessionScope["currentSessionUser"]}'></c:set>
 		<c:set var="idU" value='${currentUser.getUsername()}'></c:set>
-		<c:forEach var="item" items="${product.listByType('dienthoai')}">
+		<c:forEach var="item" items="${product.listByType('phukien')}">
 		<div class="span9">
 			<div class="well well-small">
 				<div class="row-fluid">
