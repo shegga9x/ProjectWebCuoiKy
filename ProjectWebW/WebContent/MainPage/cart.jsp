@@ -100,12 +100,14 @@
 						<label class="span2 control-label" for="inputEmail">Country</label>
 						<div class="controls">
 						  <input type="text" placeholder="Country">
+						  
 						</div>
 					  </div>
 					  <div class="control-group">
 						<label class="span2 control-label" for="inputPassword">Post Code/ Zipcode</label>
 						<div class="controls">
 						  <input type="password" placeholder="Password">
+						  <input type="hidden" name="idU" value="${idU}">
 						</div>
 					  </div>
 					  <div class="control-group">

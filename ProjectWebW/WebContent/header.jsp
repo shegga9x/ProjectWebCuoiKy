@@ -70,7 +70,6 @@
 									value="${cart.showProductItem(idU).size() }"></c:out> Item(s) - <span
 								class="badge badge-warning"> $<c:out
 										value="${cart.showCartByID(idU).getTotal() }"></c:out></span></a>
-
 						</c:when>
 						<c:otherwise>
 						<c:set var="total" value='${cart.getTotal(idU)}'></c:set>
